@@ -1,0 +1,17 @@
+name: Custom HTML Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  html-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run HTMLHint with custom rules
+        run: npx --yes htmlhint@1 --config .htmlhintrc --rulesdir rules "**/*.html" --ignore "node_modules/**"
